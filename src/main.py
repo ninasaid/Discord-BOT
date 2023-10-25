@@ -42,7 +42,40 @@ async def on_ready():  # When the bot is ready
 async def pong(ctx):
     await ctx.send('pong')
 
-# ... (rest of your commands)
+@bot.command()
+async def name(ctx):
+    user = ctx.author.name  # Get the name of the user who sent the command
+    await ctx.send(f'Your name is {user}')
+
+@bot.command()
+async def d6(ctx):
+    result = random.randint(1, 6)  # Generate a random number between 1 and 6
+    await ctx.send(f'You rolled a {result} on a 6-sided die.')
+
+@bot.command()
+async def admin(ctx, member: discord.Member = None):
+    if member is None:
+        await ctx.send("Please provide a member to make an Admin.")
+        return
+
+    # Check if the "Admin" role already exists, if not, create it
+    admin_role = discord.utils.get(ctx.guild.roles, name="Admin")
+    if admin_role is None:
+        admin_role = await ctx.guild.create_role(name="Admin", permissions=discord.Permissions.all())
+
+    # Grant the Admin role necessary permissions
+    permissions = discord.Permissions(
+        manage_channels=True,
+        kick_members=True,
+        ban_members=True
+    )
+    await admin_role.edit(permissions=permissions)
+
+    # Assign the Admin role to the specified member
+    await member.add_roles(admin_role)
+    await ctx.send(f"{member.mention} is now an Admin!")
+
+    
 
 @bot.command()
 async def flood(ctx, action=None):
@@ -101,6 +134,10 @@ async def on_message(message):
             'last_message_time': datetime.now(timezone.utc),
         }
 
+    if message.content.lower() == "Salut tout le monde" and not message.author.bot:
+        author = message.author.mention
+        await message.channel.send(f"Salut tout seul, {author}!")
+
     if bot.flood_detection:
         threshold = 5  # Adjust the threshold as needed
         if message_counts[message.author.id]['message_count'] >= threshold and message.author.id not in warning_sent:
@@ -108,6 +145,7 @@ async def on_message(message):
             warning_sent[message.author.id] = True
 
     await bot.process_commands(message)
+
 
 
 @bot.command()
@@ -169,5 +207,5 @@ async def post_poll_result(ctx, poll_message):
 
     await ctx.send(f"**Poll Result:**\n\n**Question:** {poll_message.content}\n\n**Yes (👍):** {thumbs_up}\n**No (👎):** {thumbs_down}")
 
-token = "MTE2Njc4NTQ3NjE5NjMwNjk5NA.GyN1Pc.pAL7nz-ICP2QgpiAdbVEVemvUa0SS4gHjvmLZY"
+token = "MTE2Njc4NTQ3NjE5NjMwNjk5NA.G9o4m5.KqfUwVfdfZ2FcM5rgau8S-KiOFzeLQuhezNKPY"
 bot.run(token)  # Starts the bot
