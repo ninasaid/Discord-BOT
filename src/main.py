@@ -109,13 +109,17 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
+
 @bot.command()
 async def xkcd(ctx):
-    random_comic_num = random.randint(1, 2500)
-    
-    xkcd_url = f"https://xkcd.com/{random_comic_num}/info.0.json"
-
     try:
+        # Get a random comic number by following the redirection
+        random_comic_url = "https://c.xkcd.com/random/comic/"
+        response = urlopen(random_comic_url)
+        random_comic_num = int(response.url.split("/")[-2])  # Extract the comic number
+
+        # Construct the image URL for the random comic
+        xkcd_url = f"https://xkcd.com/{random_comic_num}/info.0.json"
         response = urlopen(xkcd_url)
         data = response.read().decode("utf-8")
 
@@ -123,7 +127,7 @@ async def xkcd(ctx):
 
         await ctx.send(f"{img_url}")
     except Exception as e:
-        await ctx.send("Error fetching")
+        await ctx.send("Error fetching XKCD comic")
 
 @bot.command()
 async def poll(ctx, *, question=None):
@@ -164,6 +168,6 @@ async def post_poll_result(ctx, poll_message):
             thumbs_down = reaction.count - 1
 
     await ctx.send(f"**Poll Result:**\n\n**Question:** {poll_message.content}\n\n**Yes (👍):** {thumbs_up}\n**No (👎):** {thumbs_down}")
-    
-token = "MTE2Njc4NTQ3NjE5NjMwNjk5NA.GdTSnw.UbDCeMVaAkb6EFJn6vZ1a6F0SENZp2LlgaWqIM"
+
+token = "MTE2Njc4NTQ3NjE5NjMwNjk5NA.GyN1Pc.pAL7nz-ICP2QgpiAdbVEVemvUa0SS4gHjvmLZY"
 bot.run(token)  # Starts the bot

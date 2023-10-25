@@ -36,25 +36,25 @@
 
 ### Warm-up 
 
-[ ] When typing `!name` the bot should write back the name of the user typing the command
+[X] When typing `!name` the bot should write back the name of the user typing the command
 
-[ ] When typing `!d6` the bot should answer with a value between 1 and 6
+[X] When typing `!d6` the bot should answer with a value between 1 and 6
 
-[ ] When typing "Salut tout le monde" (without the command sign), the bot should say "Salut tout seul" and ping the original author of the message 
+[X] When typing "Salut tout le monde" (without the command sign), the bot should say "Salut tout seul" and ping the original author of the message 
 
 ### Administration
-[ ] When typing `!admin <A member nickname>`, your bot should create an Admin role (if it doesn't exists) on your server, allowing them to manage channels, kick and ban members, and give it to the member in parameter
+[X] When typing `!admin <A member nickname>`, your bot should create an Admin role (if it doesn't exists) on your server, allowing them to manage channels, kick and ban members, and give it to the member in parameter
 
-[ ] When typing `!ban <A member nickname> <ban reason?>`, your bot should ban that member from the server (**Test with caution**) displaying the input reason for the ban. If no ban reason is input, your bot should display a funny catchphrase picked at random in a given list
+[X] When typing `!ban <A member nickname> <ban reason?>`, your bot should ban that member from the server (**Test with caution**) displaying the input reason for the ban. If no ban reason is input, your bot should display a funny catchphrase picked at random in a given list
 
-[ ] The command `!flood` should activate (or deactivate) a moderation workflow. When activated, your bot should monitor the messages and display a warning to any user posting more than X messages in the last Y minutes. The (de)activation should be confirmed using a custom message
+[X] The command `!flood` should activate (or deactivate) a moderation workflow. When activated, your bot should monitor the messages and display a warning to any user posting more than X messages in the last Y minutes. The (de)activation should be confirmed using a custom message
 
 
 
 ### It's all fun and games
-[ ] When typing `!xkcd`, your post should post a random comic from https://xkcd.com
+[X] When typing `!xkcd`, your post should post a random comic from https://xkcd.com
 
-[ ] When typing `!poll <question>`, your bot should post a @here mention followed by a Yes/No question. The bost will then write the question again in another message and add one :thumbsup: and one :thumbsdown: emoji reaction to its message 
+[X] When typing `!poll <question>`, your bot should post a @here mention followed by a Yes/No question. The bost will then write the question again in another message and add one :thumbsup: and one :thumbsdown: emoji reaction to its message 
 - Example : `!poll "Should we get burgers ?"`
 - Extra-mile : Define a time-limit for the poll. When the limit has been reached, bot will bot a message with the final result and delete the original poll message
 
